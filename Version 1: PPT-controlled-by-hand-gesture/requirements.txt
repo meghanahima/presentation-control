@@ -1,0 +1,9 @@
+opencv-contrib-python
+numpy
+Hand-Tracking-Module
+Mediapipe
+pywin32
+cvzone
+aspose.slides 
+# freeze
+# https://github.com/ranizouaoui/PPT-Presentation-controlled-by-hand-gesture
