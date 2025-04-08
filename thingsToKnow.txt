@@ -1,0 +1,32 @@
+about libraries:-----------------------------------------
+in cv zone the hand tracker module uses mediapipe library(detect hands, face, pose) to give handDetector functionality(hand detector functionality has findHands, fingersUp functions)
+
+CV zone - simplifies computer vision tasks - open CV + media pipe
+
+pywin32 has win32com.client (control powerpoint through com automation)
+
+challenge for gestures:--------------------------------------
+normal hand movements should not be recognised as the gestures, so a particular gesture threshold is used to solve this problem
+
+voice capturing:---------------------------------------------
+In Whisper, your audio waveform is converted into a tensor. tensor is given to model and it passes layer by layer to give final tensor which has text token probabilites which gives final transcription
+
+i have used speech_recognition for capture audio and google speech API to get text from audio
+
+i want one wake word and then the command will be listened - for this porcupine library is used because 
+it will not constantly record and transcribe but detect for the wake word and only then the audio recorded with speech_recognition and transcribed with google speech API
+
+
+challenge on ptt slide what is happening cannot be known - but in console i can see messages like waiting for wake word, say command, no wake word detected,.. of voice.py module-------------------------
+so to solve this i am showing the same messages on bottom of the ppt slide using win32com.client
+
+but there is still challenge that this cannot be done from voice.py because the win32com.client does not support background threads to do this task as it is not thread-safe
+utilitized message queues and the messages being pushed into these and the message are displayed on the slide by main thread
+
+this did not work well
+
+
+to solve the issue of displaying message like captions ------------------------
+I have used  overlay in main thread and created seperate threads for gesture and voice.
+what i have done is if gesture recognized - i have called safe_slide_action by gesture thread and if voice command recognized, then i called safe_slide_action from voice thread which again did not work as the win32com client cannot be invoked by 2 threads, so from the main thread itseld these slide movements need to be done, so i am moving these commands into message queue and this queue will run the slide movements functions
+solution title - build a thread-safe command queue
