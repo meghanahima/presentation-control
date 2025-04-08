@@ -1,4 +1,5 @@
 # presentation-control
+documentation - https://docs.google.com/document/d/1_VJ6UWcJNRdVt3eLA15h9HtA-SPrH26NXxdi8neYkLQ/edit?usp=sharing
 
 1st version: https://github.com/meghanahima/presentation-control/tree/presentation-control-with-gestures
 
