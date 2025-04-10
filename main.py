@@ -6,6 +6,7 @@ from utilities.ppt_control import next_slide, previous_slide, presentation, clos
 from utilities.voice import get_voice_command
 from utilities.overlay import overlay
 
+
 cap = cv2.VideoCapture(0)
 exit_requested = False
 
