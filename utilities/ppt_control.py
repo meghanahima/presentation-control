@@ -1,8 +1,9 @@
 import win32com.client
 from utilities import overlay
+from pptPath import ppt_path
 
 powerpoint = win32com.client.Dispatch("Powerpoint.Application")
-presentation = powerpoint.Presentations.Open(r"M:\presentation-control\demoPPT.pptx")
+presentation = powerpoint.Presentations.Open(ppt_path)
 presentation.SlideShowSettings.Run()
 
 totalSlides = presentation.Slides.Count

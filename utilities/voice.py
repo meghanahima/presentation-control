@@ -2,6 +2,9 @@ import speech_recognition as sr
 from utilities.overlay import show_caption
 import re
 
+# for semantic search of slides with command
+from utilities.embeddings import get_best_matching_slide 
+
 recognizer = sr.Recognizer()
 
 def get_voice_command():
@@ -25,6 +28,11 @@ def get_voice_command():
                     return "next"
                 elif "previous" in command_text or "back" in command_text:
                     return "previous"
+                elif command_text.startswith("contextual"):
+                    query = command_text.replace("contextual", "").strip()
+                    best_idx, best_score = get_best_matching_slide(query)
+                    show_caption(message=f"Moved to {best_score}% matched slide", duration=1000)
+                    return f"goto {best_idx+1}"
                 else:
                     show_caption("⚠️ No valid command detected.")
                     
