@@ -31,17 +31,18 @@ def get_voice_command():
                 elif command_text.startswith("contextual"):
                     query = command_text.replace("contextual", "").strip()
                     best_idx, best_score = get_best_matching_slide(query)
-                    show_caption(message=f"Moved to {best_score}% matched slide", duration=1000)
+                    score_percent = round(best_score * 100)
+                    show_caption(f"🎯 Moved to slide with {score_percent}% match")
                     return f"goto {best_idx+1}"
                 else:
-                    show_caption("⚠️ No valid command detected.")
+                    show_caption("⚠️ No valid command detected")
                     
             else:
-                show_caption("❌ Wake word not detected.")
+                show_caption("❌ Wake word not detected")
 
         except sr.UnknownValueError:
-            show_caption("😕 Could not understand audio.")
+            show_caption("😕 Could not understand audio")
         except sr.RequestError:
-            show_caption("⚠️ Could not reach Google API.")
+            show_caption("⚠️ Could not reach Google API")
 
     return None

@@ -1,13 +1,29 @@
 import win32com.client
+import os
 from utilities import overlay
 from pptPath import ppt_path
 
-powerpoint = win32com.client.Dispatch("Powerpoint.Application")
-presentation = powerpoint.Presentations.Open(ppt_path)
-presentation.SlideShowSettings.Run()
-
-totalSlides = presentation.Slides.Count
+powerpoint = None
+presentation = None
+totalSlides = 0
 currentSlide = 1
+
+def initialize_powerpoint():
+    global powerpoint, presentation, totalSlides
+    try:
+        powerpoint = win32com.client.Dispatch("PowerPoint.Application")
+        if not os.path.exists(ppt_path):
+            raise FileNotFoundError(f"PowerPoint file not found: {ppt_path}")
+            
+        presentation = powerpoint.Presentations.Open(os.path.abspath(ppt_path))
+        presentation.SlideShowSettings.Run()
+        totalSlides = presentation.Slides.Count
+        return True
+    except Exception as e:
+        print(f"PowerPoint initialization error: {e}")
+        raise
+
+initialize_powerpoint()
 
 def next_slide():
     global currentSlide
