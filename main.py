@@ -6,8 +6,33 @@ from utilities.ppt_control import next_slide, previous_slide, presentation, clos
 from utilities.voice import get_voice_command
 from utilities.overlay import overlay
 
+# Initialize webcam with error handling
+def init_webcam():
+    cap = cv2.VideoCapture(0)
+    if not cap.isOpened():
+        print("❌ Failed to open webcam. Trying alternative camera index...")
+        cap = cv2.VideoCapture(1)  # Try alternative camera index
+        if not cap.isOpened():
+            raise RuntimeError("❌ Could not open any webcam")
+    
+    # Set camera properties
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+    
+    # Test if we can read a frame
+    ret, frame = cap.read()
+    if not ret or frame is None:
+        raise RuntimeError("❌ Could not read frame from webcam")
+    
+    print("✅ Webcam initialized successfully")
+    return cap
 
-cap = cv2.VideoCapture(0)
+try:
+    cap = init_webcam()
+except Exception as e:
+    print(f"❌ Webcam initialization error: {e}")
+    sys.exit(1)
+
 exit_requested = False
 
 def shutdown(reason):
@@ -53,9 +78,17 @@ def gesture_loop():
     while not exit_requested:
         try:
             success, frame = cap.read()
-            if not success:
+            if not success or frame is None:
+                print("❌ Failed to read frame from webcam")
                 shutdown("Could not access webcam")
                 break
+                
+            # Update camera feed in overlay
+            try:
+                overlay.update_camera(frame)
+            except Exception as e:
+                print(f"❌ Error updating camera feed: {e}")
+            
             if not gestureIdentified:
                 gesture = detect_gesture(frame)
                 if gesture:
@@ -73,6 +106,7 @@ def gesture_loop():
                 shutdown("User quit")
                 break
         except Exception as e:
+            print(f"❌ Gesture loop error: {e}")
             shutdown(f"Gesture loop error: {e}")
             break
 
