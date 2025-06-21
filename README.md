@@ -1,7 +1,7 @@
 # presentation-control
 ## 🚀 Demo
 
-![Project Demo](Resume matches gif.gif)
+![Project Demo](demo.gif)
 
 documentation - https://docs.google.com/document/d/1_VJ6UWcJNRdVt3eLA15h9HtA-SPrH26NXxdi8neYkLQ/edit?usp=sharing
 
