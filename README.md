@@ -1,36 +1,61 @@
-# presentation-control
+# 🖥️ Presentation Controller — Gesture, Voice, and Semantic Slide Navigation
+
+A smart presentation controller that lets you navigate PowerPoint slides using hand gestures, voice commands, and natural language queries. Built with computer vision, speech recognition, and semantic search, this system enables smooth, hands-free slide control for presenters.
+
+---
+
 ## 🚀 Demo
 
 ![Project Demo](demo.gif)
 
-documentation - https://docs.google.com/document/d/1_VJ6UWcJNRdVt3eLA15h9HtA-SPrH26NXxdi8neYkLQ/edit?usp=sharing
+---
 
-1st version: https://github.com/meghanahima/presentation-control/tree/presentation-control-with-gestures
+## 📄 Documentation
 
-Gesture control module
-Uses win32com to open powerpoint presentation
-CV Zone - open CV (video capturing) + mediapipe (for detecting hands, face, pose)
+📘 [View Full Documentation](https://docs.google.com/document/d/1_VJ6UWcJNRdVt3eLA15h9HtA-SPrH26NXxdi8neYkLQ/edit?usp=sharing)
 
+---
 
-2nd version: https://github.com/meghanahima/presentation-control/tree/voice-commands-and-gesture-controlled-ppt
+## ✨ Features
 
-Has main.py
-And the utilities are gesture, voice, presentation_control
-I have used speech recognition library and if wake word detected then taking commands like next, previous, and goto slide number
+### 🖐️ Gesture Control
+- Uses **OpenCV + MediaPipe** (via **CVZone**) to detect hand landmarks
+- Recognizes gestures to control slide navigation (e.g., next, previous)
+- Hands-free and intuitive for live presentations
 
-3rd version - Semantic search
-https://github.com/meghanahima/presentation-control/tree/semantic-search-with-SBERT
+### 🗣️ Voice Command Interface
+- Built with **SpeechRecognition** for real-time voice input
+- Triggered via wake word (e.g., "computer")
+- Supports commands like:
+  - “Next slide”
+  - “Previous slide”
+  - “Go to slide 5”
 
-Approach being used here: SBERT + cosine similarity
-Extract Slide Content
-Semantic Embedding of Slides using SBERT
-Process Voice Command → Text → Embedding
-cosine similarity to find best matching slide
-Evaluating accuracy
+### 🧠 Semantic Search Navigation
+- Uses **Sentence-BERT (SBERT)** to understand natural language
+- Matches voice queries to slides based on semantic meaning
+  - Example: "Go to the slide about renewable energy"
+- **Cosine similarity** is used to find the best-matching slide
+- Accurate and context-aware navigation experience
 
-Colab link for evaluating the accuracy and errors:
-https://colab.research.google.com/drive/10wqCi495fUVeP1YqGqbnWNJM9rAS8TXS?usp=sharing
+---
 
-Libraries used: 
-Python–pptx -> used for extracting text from slides, 
-Sentence-transformers -> This library has models for generating embeddings and returns a tensor
+## 🧪 Accuracy Evaluation
+
+📊 Accuracy evaluation and error analysis is available in this Colab notebook:  
+🔗 [Open in Google Colab](https://colab.research.google.com/drive/10wqCi495fUVeP1YqGqbnWNJM9rAS8TXS?usp=sharing)
+
+---
+
+## ⚙️ Technologies Used
+
+| Purpose                | Library/Tool              |
+|------------------------|---------------------------|
+| Hand Gesture Detection | OpenCV, MediaPipe, CVZone |
+| Voice Recognition      | SpeechRecognition         |
+| PowerPoint Automation  | `win32com.client`         |
+| Slide Text Extraction  | `python-pptx`             |
+| Semantic Search        | SBERT, SentenceTransformers |
+| Similarity Matching    | Cosine Similarity         |
+
+---
